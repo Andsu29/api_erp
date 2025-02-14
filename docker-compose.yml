@@ -1,0 +1,36 @@
+services:
+  db_ecom:
+    image: mysql:5.7
+    container_name: db_ecom
+    env_file:
+      - .env
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - mynetwork
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+
+  api_erp:
+    build: .
+    env_file:
+      - .env
+    depends_on:
+      db_ecom:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  mysql_data:

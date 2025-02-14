@@ -2,8 +2,9 @@ import pymysql
 import pymysql.cursors
 import time
 
+
 class Conn():
-    def __init__(self, host="db_ecom", user="usuario", password="senha", database="db_ecom", port=3306):
+    def __init__(self, host="db_ecom", user="root", password="senha", database="db_ecom", port=3306):
         self.host = host
         self.user = user
         self.password = password
@@ -26,7 +27,7 @@ class Conn():
                 return self.connection
             except Exception as e:
                 print(f"Erro ao conectar ao DB: {e}")
-                time.sleep(2)
+                time.sleep(5)
         raise Exception("Não foi possível conectar ao MySQL após várias tentativas.")
 
     def commit(self):
