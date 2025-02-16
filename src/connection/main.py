@@ -1,10 +1,14 @@
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "src")))
+from setup.deployment import DB1
 import pymysql
 import pymysql.cursors
 import time
 
 
 class Conn():
-    def __init__(self, host="db_ecom", user="root", password="senha", database="db_ecom", port=3306):
+    def __init__(self, host=DB1['host'], user=DB1['user'], password=DB1['password'], database=DB1['database'], port=DB1['port']):
         self.host = host
         self.user = user
         self.password = password
@@ -20,7 +24,7 @@ class Conn():
                     user=self.user,
                     password=self.password,
                     database=self.database,
-                    port=self.port,
+                    port=int(self.port),
                     cursorclass=pymysql.cursors.DictCursor,
                 )
                 print("Conexão estabelecida com sucesso!")
