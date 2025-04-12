@@ -3,9 +3,9 @@ def query_get_all_products():
     SELECT * FROM produtos
     """
 
-def query_get_product(pid):
+def query_get_product(id_produto):
     return f"""
-    SELECT * FROM produtos WHERE id = {pid}
+    SELECT * FROM produtos WHERE id = {id_produto}
     """
 
 def query_post_products(titulo, descricao, preco, categoria, marca, modelo, codpro):
@@ -23,7 +23,7 @@ def query_delete_product():
         DELETE FROM produtos WHERE id = %s;
     """
 
-def query_update_product(pid):
+def query_update_product(id_produto):
     return f"""
-        UPDATE produtos SET titulo=%s, descricao=%s, preco=%s, categoria=%s, marca=%s, modelo=%s, codpro=%s WHERE id = {pid};
+        UPDATE produtos SET titulo=%s, descricao=%s, preco=%s, categoria=%s, marca=%s, modelo=%s, codpro=%s WHERE id = {id_produto};
     """

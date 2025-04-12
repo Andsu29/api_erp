@@ -19,10 +19,10 @@ class Methods():
         finally:
                 self.connection.close_connection()
 
-    def get_product(self, pid):
+    def get_product(self, id_produto):
         try:
             with self.connection.create_connection().cursor() as cursor:
-                query = query_get_product(pid)
+                query = query_get_product(id_produto)
                 cursor.execute(query)
                 data = cursor.fetchone()
                 if data:
@@ -43,11 +43,11 @@ class Methods():
         finally:
             self.connection.close_connection()
 
-    def insert_image(self, file, pid):
+    def insert_image(self, file, id_produto):
         try:
             with self.connection.create_connection().cursor() as cursor:
                 query = query_update_file()
-                cursor.execute(query, (file, pid))
+                cursor.execute(query, (file, id_produto))
                 self.connection.commit()
         except Exception as e:
             print(f"Erro ao adicionar imagem: {e}")
@@ -65,10 +65,10 @@ class Methods():
         finally:
             self.connection.close_connection()
     
-    def update_product(self, pid, titulo, descricao, preco, categoria, marca, modelo, codpro):
+    def update_product(self, id_produto, titulo, descricao, preco, categoria, marca, modelo, codpro):
         try:
             with self.connection.create_connection().cursor() as cursor:
-                query = query_update_product(pid)
+                query = query_update_product(id_produto)
                 values = (titulo, descricao, preco, categoria, marca, modelo, codpro)
                 cursor.execute(query, values)
                 self.connection.commit()

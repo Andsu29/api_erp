@@ -1,7 +1,7 @@
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "src")))
-from setup.deployment import DB1
+from setup.enviroments import DB1
 import pymysql
 import pymysql.cursors
 import time
