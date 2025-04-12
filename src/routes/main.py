@@ -30,9 +30,9 @@ def all_products():
             })
     return jsonify(produtos_formatados)
 
-@app.route('/produto/<id_produto>', methods=['GET'])
-def get_product(id_produto: int):
-    product = methods.get_product(id_produto)
+@app.route('/produto/<pid>', methods=['GET'])
+def get_product(pid: int):
+    product = methods.get_product(pid)
     produto_formatado = []
     imagem_base64 = None
 
@@ -77,16 +77,16 @@ def upload():
     if 'file' not in request.files:
         return jsonify({'Erro': 'Campo "file" não encontrado'}), 400
 
-    if 'codPro' not in request.form:
-        return jsonify({'Erro': 'Campo "codPro" não encontrado'}), 400
+    if 'pid' not in request.form:
+        return jsonify({'Erro': 'Campo "pid" não encontrado'}), 400
     
     file = request.files['file']
-    codPro = request.form['codPro']
+    pid = request.form['pid']
 
     if file.filename == '':
         return jsonify({'Erro': 'Nenhum arquivo enviado'}), 400
 
-    methods.insert_image(file.read(), int(codPro))
+    methods.insert_image(file.read(), int(pid))
     return jsonify({"Mensagem": "Imagem inserida"})
 
 @app.route('/remover_produto/<id_produto>', methods=['DELETE'])
@@ -96,3 +96,21 @@ def delete_product(id_produto: int):
         return jsonify({"Mensagem": "Produto Removido!"})
     else:
         return jsonify({"Mensagem": "ID não encontrado!"})
+
+@app.route('/atualiza_produto', methods=['PATCH'])
+def update_product():
+    data = request.json
+    if data:
+        pid = data['id']
+        titulo = data['titulo']
+        descricao = data['descricao']
+        preco = data['preco']
+        categoria = data['categoria']
+        marca = data['marca']
+        modelo = data['modelo']
+        codpro = data['codpro']
+        
+        methods.update_product(pid, titulo, descricao, preco, categoria, marca, modelo, codpro)
+        return jsonify({"Sucesso": "Produto atualizado"}), 200
+    else:
+        return jsonify({'Erro': 'Dados incorretos para atualizar o produto'}), 400
