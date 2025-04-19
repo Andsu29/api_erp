@@ -1,14 +1,10 @@
-import os
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "src")))
-from setup.enviroments import DB1
 import pymysql
 import pymysql.cursors
 import time
 
 
 class Conn():
-    def __init__(self, host=DB1['host'], user=DB1['user'], password=DB1['password'], database=DB1['database'], port=DB1['port']):
+    def __init__(self, host, user, password, database, port):
         self.host = host
         self.user = user
         self.password = password

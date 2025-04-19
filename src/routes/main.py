@@ -66,8 +66,10 @@ def post_product():
         marca = data['marca']
         modelo = data['modelo']
         codpro = data['codpro']
+        qtd_estoque = data['qtd_estoque']
+        cor = data['cor']
         
-        methods.insert_product(titulo, descricao, preco, categoria, marca, modelo, codpro)
+        methods.insert_product(titulo, descricao, preco, categoria, marca, modelo, codpro, qtd_estoque, cor)
         return jsonify({"Sucesso": "Dados inseridos"}), 200
     else:
         return jsonify({'Erro': 'Erro ao adicionar produto'}), 400
@@ -108,8 +110,10 @@ def update_product(id_produto: int):
         marca = data['marca']
         modelo = data['modelo']
         codpro = data['codpro']
+        qtd_estoque = data['qtd_estoque']
+        cor = data['cor']
         
-        methods.update_product(id_produto, titulo, descricao, preco, categoria, marca, modelo, codpro)
+        methods.update_product(id_produto, titulo, descricao, preco, categoria, marca, modelo, codpro, qtd_estoque, cor)
         return jsonify({"Sucesso": "Produto atualizado"}), 200
     else:
         return jsonify({'Erro': 'Dados incorretos para atualizar o produto'}), 400

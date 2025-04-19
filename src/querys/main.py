@@ -8,14 +8,14 @@ def query_get_product(id_produto):
     SELECT * FROM produtos WHERE id = {id_produto}
     """
 
-def query_post_products(titulo, descricao, preco, categoria, marca, modelo, codpro):
+def query_post_products(titulo, descricao, preco, categoria, marca, modelo, codpro, qtd_estoque, cor):
     return f"""
-        INSERT INTO produtos (titulo, descricao, preco, categoria, marca, modelo, codpro) VALUES ('{titulo}', '{descricao}', {preco}, '{categoria}', '{marca}', '{modelo}', '{codpro}')
+        INSERT INTO produtos (titulo, descricao, preco, categoria, marca, modelo, codpro, qtd_estoque, cor) VALUES ('{titulo}', '{descricao}', {preco}, '{categoria}', '{marca}', '{modelo}', '{codpro}', '{qtd_estoque}', '{cor}')
     """
 
 def query_update_file():
     return f"""
-        UPDATE produtos SET imagens = %s WHERE id = %s;
+        UPDATE produtos SET imagens = %s WHERE pid = %s;
     """
 
 def query_delete_product():
@@ -25,5 +25,5 @@ def query_delete_product():
 
 def query_update_product(id_produto):
     return f"""
-        UPDATE produtos SET titulo=%s, descricao=%s, preco=%s, categoria=%s, marca=%s, modelo=%s, codpro=%s WHERE id = {id_produto};
+        UPDATE produtos SET titulo=%s, descricao=%s, preco=%s, categoria=%s, marca=%s, modelo=%s, codpro=%s, qtd_estoque=%s, cor=%s WHERE id = {id_produto};
     """
